@@ -3,10 +3,10 @@ import Page from '../components/Page';
 import ListUsers from '../components/ListUsers'; 
 
 
-function Users(props) {
+function Users({ history }) {
     return (
         <Page text="Users">
-            <ListUsers/>
+            <ListUsers history={history}/>
         </Page>
     );
 }

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Users from './pages/Users'; 
 import AddUser from './pages/AddUser'; 
+import UpdateUser from './pages/UpdateUser'; 
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 			<Switch>
 				<Route exact path="/" component={Users}/>
 				<Route path="/adduser" component={AddUser}/>
+				<Route path="/update-user/:id" component={UpdateUser}/>
 			</Switch>
 		</div>
 	</Router>

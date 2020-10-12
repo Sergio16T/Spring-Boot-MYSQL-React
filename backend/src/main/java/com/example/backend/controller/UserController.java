@@ -1,17 +1,24 @@
 package com.example.backend.controller;
 
 import com.example.backend.repository.UserRepository;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -33,5 +40,40 @@ public class UserController {
     public User createUser(@RequestBody User user) {
         User newUser = userRepository.save(user); 
         return newUser; 
+    }
+
+    //get user by id 
+    @GetMapping("/users/{id}") // path variable use annotation
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userRepository.findById(id) //findById can return optional so this gives us the orElseThrow method as an option
+        .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
+
+        return ResponseEntity.ok(user);
+    }
+
+    // update user 
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        User user = userRepository.findById(id) //findById can return type "optional" so this gives us the orElseThrow method as an option
+        .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
+
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
+        user.setEmail(userDetails.getEmail());
+
+        User updatedUser = userRepository.save(user); 
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    // delete user 
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
+        User user = userRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
+
+         userRepository.delete(user);
+         Map<String, Boolean> response = new HashMap<>(); 
+         response.put("Deleted", true); 
+         return ResponseEntity.ok(response); 
     }
 }

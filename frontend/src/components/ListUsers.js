@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, Fragment } from 'react';
 import userService from '../services/userService'; 
 import Table from '@material-ui/core/Table'; 
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 class ListUsers extends Component {
     state = {
@@ -19,11 +22,20 @@ class ListUsers extends Component {
 
     getUsers = async () => {
         const { data } = await userService.getUsers(); 
-        console.log(data);
         this.setState({
             users: data
         })
     }
+    deleteUser = async (id, handleClose) => {
+        await userService.deleteUser(id); 
+        const users = this.state.users.filter(user => user.id !== id); 
+        this.setState({ users });
+        handleClose();
+    }
+
+    handleUpdateRedirect = (path) => {
+        this.props.history.push(path); 
+    }; 
     render() {
         const { users } = this.state; 
         return (
@@ -44,7 +56,26 @@ class ListUsers extends Component {
                                 <TableCell>{user.firstName}</TableCell>
                                 <TableCell>{user.lastName}</TableCell>
                                 <TableCell>{user.email}</TableCell>
-                                <TableCell></TableCell>
+                                <TableCell>
+                                    <ActionMenu>
+                                        {({ handleClose }) => {
+                                            return [
+                                            <MenuItem
+                                            onClick={() => this.handleUpdateRedirect(`/update-user/${user.id}`)}
+                                            key='item1'
+                                            >
+                                                Update User
+                                            </MenuItem>, 
+                                            <MenuItem
+                                            onClick={() => this.deleteUser(user.id, handleClose)}
+                                            key='item2'
+                                            >
+                                                Delete User
+                                            </MenuItem>
+                                            ]
+                                        }}
+                                    </ActionMenu>
+                                </TableCell>
                             </TableRow>
                             ): null}
                         </TableBody>
@@ -53,6 +84,39 @@ class ListUsers extends Component {
             </div>
         );
     }
+}
+
+const ActionMenu = ({ children })=> {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null); 
+    }
+    return (
+        <Fragment>
+            <Button 
+            aria-controls="simple-menu" 
+            aria-haspopup="true" 
+            onClick={handleClick}
+            variant="outlined"
+            >
+            Action
+            </Button>
+            <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            >
+              {children({ handleClose })}
+            </Menu>
+        </Fragment>
+    )
 }
 
 export default ListUsers;

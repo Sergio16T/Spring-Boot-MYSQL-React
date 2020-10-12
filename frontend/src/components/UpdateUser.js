@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
 import UserForm from './UserForm'; 
-import useStyles from './useStyles/AddUserStyles'; 
-
-const AddUser = ({ history }) => {
+import useStyles from './useStyles/UpdateUserStyles';
+  
+const UpdateUser = ({ history, match }) => {
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
         email: ""
     });
     const classes = useStyles();
+
+    useEffect(() => {
+        const getUserData = async () => {
+            const { data } = await userService.getUserById(match.params.id); 
+            setState(data);
+        }
+        getUserData();
+    }, [match.params.id]); 
 
     const handleInputChange  = (e) => {
         const { name , value } = e.target; 
@@ -20,8 +28,7 @@ const AddUser = ({ history }) => {
     }
     const submitForm = async (e) => {
         e.preventDefault();
-        const result = await userService.addUser(state); 
-        console.log(result)
+        await userService.updateUser(match.params.id, state); 
         history.push('/');
     }
     return (
@@ -30,10 +37,9 @@ const AddUser = ({ history }) => {
         state={state}
         handleInputChange={handleInputChange}
         submitForm={submitForm}
-        text="Add User"
+        text="Save Updates"
         />
     );
 };
 
-
-export default AddUser;
+export default UpdateUser;
