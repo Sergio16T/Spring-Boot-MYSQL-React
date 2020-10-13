@@ -37,9 +37,9 @@ public class UserController {
 
     // create user
     @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        User newUser = userRepository.save(user); 
-        return newUser; 
+    public int createUser(@RequestBody User user) {
+        int newUserId = userRepository.save(user); 
+        return newUserId; 
     }
 
     //get user by id 
@@ -53,7 +53,7 @@ public class UserController {
 
     // update user 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ResponseEntity<Integer> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User user = userRepository.findById(id) //findById can return type "optional" so this gives us the orElseThrow method as an option
         .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
 
@@ -61,17 +61,14 @@ public class UserController {
         user.setLastName(userDetails.getLastName());
         user.setEmail(userDetails.getEmail());
 
-        User updatedUser = userRepository.save(user); 
+        int updatedUser = userRepository.update(user); 
         return ResponseEntity.ok(updatedUser);
     }
 
     // delete user 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
-        User user = userRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
-
-         userRepository.delete(user);
+         userRepository.delete(id);
          Map<String, Boolean> response = new HashMap<>(); 
          response.put("Deleted", true); 
          return ResponseEntity.ok(response); 

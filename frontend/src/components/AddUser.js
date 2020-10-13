@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import userService from '../services/userService';
 import UserForm from './UserForm'; 
-import useStyles from './useStyles/AddUserStyles'; 
+import useStyles from './useStyles/UserFormStyles'; 
 
 const AddUser = ({ history }) => {
     const [state, setState] = useState({

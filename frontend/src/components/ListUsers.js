@@ -22,15 +22,15 @@ class ListUsers extends Component {
 
     getUsers = async () => {
         const { data } = await userService.getUsers(); 
+        // console.log(data);
         this.setState({
             users: data
         })
     }
-    deleteUser = async (id, handleClose) => {
+    deleteUser = async (id) => {
         await userService.deleteUser(id); 
         const users = this.state.users.filter(user => user.id !== id); 
         this.setState({ users });
-        handleClose();
     }
 
     handleUpdateRedirect = (path) => {
@@ -58,22 +58,18 @@ class ListUsers extends Component {
                                 <TableCell>{user.email}</TableCell>
                                 <TableCell>
                                     <ActionMenu>
-                                        {({ handleClose }) => {
-                                            return [
                                             <MenuItem
                                             onClick={() => this.handleUpdateRedirect(`/update-user/${user.id}`)}
                                             key='item1'
                                             >
                                                 Update User
-                                            </MenuItem>, 
+                                            </MenuItem>
                                             <MenuItem
-                                            onClick={() => this.deleteUser(user.id, handleClose)}
+                                            onClick={() => this.deleteUser(user.id)}
                                             key='item2'
                                             >
                                                 Delete User
                                             </MenuItem>
-                                            ]
-                                        }}
                                     </ActionMenu>
                                 </TableCell>
                             </TableRow>
@@ -113,7 +109,7 @@ const ActionMenu = ({ children })=> {
             open={Boolean(anchorEl)}
             onClose={handleClose}
             >
-              {children({ handleClose })}
+              {children}
             </Menu>
         </Fragment>
     )

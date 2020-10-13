@@ -8,12 +8,14 @@ import {
 import Users from './pages/Users'; 
 import AddUser from './pages/AddUser'; 
 import UpdateUser from './pages/UpdateUser'; 
+import SignUp from './pages/SignUp'; 
 
 function App() {
   return (
 	<Router>
 		<div className="App">
 			<Switch>
+				<Route exact path ="/signup" component={SignUp}/>
 				<Route exact path="/" component={Users}/>
 				<Route path="/adduser" component={AddUser}/>
 				<Route path="/update-user/:id" component={UpdateUser}/>

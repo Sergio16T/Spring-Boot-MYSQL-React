@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
 import UserForm from './UserForm'; 
-import useStyles from './useStyles/UpdateUserStyles';
+import useStyles from './useStyles/UserFormStyles';
   
 const UpdateUser = ({ history, match }) => {
     const [state, setState] = useState({
