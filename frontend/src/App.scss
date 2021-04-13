@@ -1,7 +1,24 @@
-.App {
-  text-align: center;
+html {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
 }
-
+body {
+  margin: 0%;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+}
+.App {
+  height: 100%;
+  min-height: 100%;
+  text-align: center;
+  background-color: rgba(32, 33, 36, 1);
+}
+#root {
+  height: 100%;
+  min-height: 100%;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

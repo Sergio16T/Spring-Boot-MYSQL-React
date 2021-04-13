@@ -1,6 +1,7 @@
-import axios from 'axios'; 
+import axios from 'axios';
 
-const basePath = "http://localhost:8080/api/v1/users"
+const basePath = "http://localhost:8080/api/v1/users";
+
 class UserService {
     getUsers() {
         return axios.get(basePath);

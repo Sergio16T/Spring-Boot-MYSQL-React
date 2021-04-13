@@ -1,9 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
-        display: "flex", 
+        display: "flex",
         flexDirection: "column",
         margin: theme.spacing(2),
       },
@@ -12,11 +12,16 @@ const useStyles = makeStyles((theme) => ({
     },
     formContainer: {
         padding: '2rem 1rem',
-    }, 
+        transform: 'translate(-50%, -50%)',
+        top: '50%',
+        left: '50%',
+        position: 'relative',
+    },
     form: {
+        background: 'white',
         maxWidth: "50ch",
         margin: "0 auto",
-        padding: "0rem 2rem 2rem 2rem", 
+        padding: "0rem 2rem 2rem 2rem",
         border: "1px solid rgb(217, 228, 236)",
         borderRadius: "4px",
         boxShadow: "rgba(51, 51, 51, 0.2) 1px 1px 4px 1px",
@@ -28,4 +33,4 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-  export default useStyles; 
+  export default useStyles;
