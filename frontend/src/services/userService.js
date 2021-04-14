@@ -4,7 +4,7 @@ const basePath = "http://localhost:8080/api/v1/users";
 
 class UserService {
     getUsers() {
-        return axios.get(basePath);
+        return axios.get(basePath, { withCredentials: true });
     }
     addUser(user) {
         return axios.post(basePath, user);

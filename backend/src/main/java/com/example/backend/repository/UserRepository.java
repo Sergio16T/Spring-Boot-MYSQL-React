@@ -8,11 +8,11 @@ import java.util.Optional;
 import com.example.backend.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public class UserRepository {
@@ -51,6 +51,17 @@ public class UserRepository {
             new BeanPropertyRowMapper < User > (User.class)));
     }
 
+    public Optional < User > checkIfEmailUnavailable(String email) {
+        try {
+            return Optional.of(jdbcTemplate.queryForObject("SELECT ID, FST_NM as firstName, LST_NM as lastName, EMAIL as email from user where email=?", new Object[] {
+                email
+            },
+            new BeanPropertyRowMapper< User >(User.class)));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("Email Available");
+            return Optional.empty();
+        }
+    }
     public Optional < User > findByEmail(String email) {
         return Optional.of(jdbcTemplate.queryForObject("SELECT ID, FST_NM as firstName, LST_NM as lastName, EMAIL as email from user where email=?", new Object[] {
             email
