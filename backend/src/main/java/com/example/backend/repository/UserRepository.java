@@ -51,6 +51,13 @@ public class UserRepository {
             new BeanPropertyRowMapper < User > (User.class)));
     }
 
+    public Optional < User > findByEmail(String email) {
+        return Optional.of(jdbcTemplate.queryForObject("SELECT ID, FST_NM as firstName, LST_NM as lastName, EMAIL as email from user where email=?", new Object[] {
+            email
+        },
+        new BeanPropertyRowMapper< User >(User.class)));
+    }
+
     public int delete(long id) {
         return jdbcTemplate.update("delete from user where id=?", new Object[] {
             id

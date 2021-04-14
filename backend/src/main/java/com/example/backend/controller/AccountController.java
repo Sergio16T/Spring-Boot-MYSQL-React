@@ -1,10 +1,11 @@
 package com.example.backend.controller;
 
 import com.example.backend.repository.UserRepository;
-// import com.example.backend.exception.ResourceNotFoundException;
+import com.example.backend.exception.InternalServerErrorException;
 import com.example.backend.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 // import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 // import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,9 +31,14 @@ public class AccountController {
 
     // Signup
     @PostMapping("/account/signup")
-    public int signUp(@RequestBody User user) {
+    public ResponseEntity<Integer>  signUp(@RequestBody User user) throws InternalServerErrorException {
+        Boolean emailUnavailable = userRepository.findByEmail(user.getEmail()).isPresent();
+        if (emailUnavailable) {
+            System.out.println("Email Unavailable");
+            throw new InternalServerErrorException("Email Unavailable");
+        }
         System.out.println("signup user");
         int newUserId = userRepository.save(user);
-        return newUserId;
+        return ResponseEntity.ok(newUserId);
     }
 }

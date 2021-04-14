@@ -24,11 +24,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class UserController {
-    
-    @Autowired
-    private UserRepository userRepository; 
 
-    // get all users 
+    @Autowired
+    private UserRepository userRepository;
+
+    // get all users
     @GetMapping("/users")
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -38,39 +38,39 @@ public class UserController {
     // create user
     @PostMapping("/users")
     public int createUser(@RequestBody User user) {
-        int newUserId = userRepository.save(user); 
-        return newUserId; 
+        int newUserId = userRepository.save(user);
+        return newUserId;
     }
 
-    //get user by id 
+    //get user by id
     @GetMapping("/users/{id}") // path variable use annotation
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userRepository.findById(id) //findById can return optional so this gives us the orElseThrow method as an option
-        .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id));
 
         return ResponseEntity.ok(user);
     }
 
-    // update user 
+    // update user
     @PutMapping("/users/{id}")
     public ResponseEntity<Integer> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User user = userRepository.findById(id) //findById can return type "optional" so this gives us the orElseThrow method as an option
-        .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id)); 
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id));
 
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
         user.setEmail(userDetails.getEmail());
 
-        int updatedUser = userRepository.update(user); 
+        int updatedUser = userRepository.update(user);
         return ResponseEntity.ok(updatedUser);
     }
 
-    // delete user 
+    // delete user
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
          userRepository.delete(id);
-         Map<String, Boolean> response = new HashMap<>(); 
-         response.put("Deleted", true); 
-         return ResponseEntity.ok(response); 
+         Map<String, Boolean> response = new HashMap<>();
+         response.put("Deleted", true);
+         return ResponseEntity.ok(response);
     }
 }
