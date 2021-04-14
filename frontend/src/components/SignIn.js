@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import useStyles from './useStyles/UserFormStyles';
 import accountService from '../services/accountService';
 
-const SignUp = ({ history }) => {
+const SignIn = ({ history }) => {
     const [state, setState] = useState({
         email: "stapiafikes@gmail.com",
         password: "test123",
@@ -59,4 +59,4 @@ const SignUp = ({ history }) => {
     );
 };
 
-export default SignUp;
+export default SignIn;

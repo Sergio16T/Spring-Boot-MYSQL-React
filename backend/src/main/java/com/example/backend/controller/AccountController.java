@@ -108,6 +108,7 @@ public class AccountController {
 		cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
 		cookie.setHttpOnly(true);
 
+        // response.addCookie(cookie); // @Revisit: unable to set cookie from server in development. For now set on client
 		response.addHeader("Access-Control-Allow-Credentials", "true");
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
