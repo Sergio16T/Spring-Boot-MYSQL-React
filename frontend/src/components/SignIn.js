@@ -28,9 +28,9 @@ const SignIn = ({ history }) => {
     return (
         <div className={classes.formContainer}>
             <form
-            className={classes.form}
-            noValidate autoComplete="off"
-            onSubmit={submitForm}
+                className={classes.form}
+                noValidate autoComplete="off"
+                onSubmit={submitForm}
             >
             <fieldset className={classes.root}>
                 <TextField

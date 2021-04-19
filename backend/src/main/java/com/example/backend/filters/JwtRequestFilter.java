@@ -47,9 +47,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         Stream<Cookie> cookieStream = Arrays.stream(cookies);
 
-        cookies = cookieStream.filter(cookie -> {
-            return "jwt".equals(cookie.getName());
-        }).toArray(size -> new Cookie[size]);
+        cookies = cookieStream.filter(cookie -> { return "jwt".equals(cookie.getName()); })
+            .toArray(size -> new Cookie[size]);
 
         if (cookies.length > 0) {
             String value = cookies[0].getValue();
@@ -72,8 +71,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             System.out.println("JWT validate");
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
+
             usernamePasswordAuthenticationToken
                     .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
 

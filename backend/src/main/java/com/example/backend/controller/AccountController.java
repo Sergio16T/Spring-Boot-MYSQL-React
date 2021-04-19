@@ -4,11 +4,11 @@ import com.example.backend.repository.UserRepository;
 import com.example.backend.services.MyUserDetailsService;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.backend.exception.InternalServerErrorException;
 import com.example.backend.exception.ResourceNotFoundException;
-// import com.example.backend.model.AuthenticationRequest;
 import com.example.backend.model.AuthenticationResponse;
 import com.example.backend.model.User;
 import com.example.backend.utilities.JwtUtil;
@@ -16,8 +16,8 @@ import com.example.backend.utilities.JwtUtil;
 // import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-// import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.DeleteMapping;
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +28,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 // import org.springframework.web.bind.annotation.RequestMethod;
 // import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 // import java.util.HashMap;
 // import java.util.List;
 // import java.util.Map;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @CrossOrigin
 @RestController
@@ -54,6 +56,9 @@ public class AccountController {
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     // Signup
     @PostMapping("/account/signup")
     public ResponseEntity<?>  signUp(@RequestBody User user) throws InternalServerErrorException {
@@ -63,23 +68,12 @@ public class AccountController {
             throw new InternalServerErrorException("Email Unavailable");
         }
 
+        String password = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(password);
 
-        int newUserId = userRepository.save(user);
+        userRepository.save(user);
 
-        System.out.println("signup user: ");
-        System.out.println(newUserId);
-
-        try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-			);
-		}
-		catch (BadCredentialsException e) {
-            throw new InternalServerErrorException("Incorrect Credentials");
-		}
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
-		System.out.println("user details");
-		System.out.println(userDetails);
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
@@ -113,6 +107,15 @@ public class AccountController {
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
+    // Authenticate
+    @GetMapping("/account/auth")
+    public ResponseEntity< ? > authenticate(HttpServletRequest request, HttpServletResponse response) throws AccessDeniedException {
+            String username =  SecurityContextHolder.getContext().getAuthentication().getName();
 
+            User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new AccessDeniedException("Unable to find user with user name: " + username));
+
+            return ResponseEntity.ok(user);
+    }
 
 }

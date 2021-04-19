@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import userService from '../services/userService';
-import UserForm from './UserForm'; 
+import UserForm from './UserForm';
 import useStyles from './useStyles/UserFormStyles';
-  
+
 const UpdateUser = ({ history, match }) => {
     const [state, setState] = useState({
         firstName: "",
@@ -13,31 +13,31 @@ const UpdateUser = ({ history, match }) => {
 
     useEffect(() => {
         const getUserData = async () => {
-            const { data } = await userService.getUserById(match.params.id); 
+            const { data } = await userService.getUserById(match.params.id);
             setState(data);
         }
         getUserData();
-    }, [match.params.id]); 
+    }, [match.params.id]);
 
     const handleInputChange  = (e) => {
-        const { name , value } = e.target; 
+        const { name , value } = e.target;
         setState({
-            ...state, 
+            ...state,
             [name]: value
         });
     }
     const submitForm = async (e) => {
         e.preventDefault();
-        await userService.updateUser(match.params.id, state); 
+        await userService.updateUser(match.params.id, state);
         history.push('/');
     }
     return (
         <UserForm
-        classes={classes}
-        state={state}
-        handleInputChange={handleInputChange}
-        submitForm={submitForm}
-        text="Save Updates"
+            classes={classes}
+            state={state}
+            handleInputChange={handleInputChange}
+            submitForm={submitForm}
+            text="Save Updates"
         />
     );
 };

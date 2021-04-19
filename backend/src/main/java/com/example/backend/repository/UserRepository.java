@@ -41,11 +41,11 @@ public class UserRepository {
     }
 
     public List < User > findAll() {
-        return jdbcTemplate.query("SELECT ID, FST_NM, LST_NM, EMAIL FROM user WHERE ACT_IND = 1", new UserRowMapper());
+        return jdbcTemplate.query("SELECT id, fst_nm, lst_nm, email FROM user WHERE act_ind = 1", new UserRowMapper());
     }
 
     public Optional < User > findById(long id) {
-        return Optional.of(jdbcTemplate.queryForObject("SELECT ID, FST_NM as firstName, LST_NM as lastName, EMAIL as email from user where ID=?", new Object[] {
+        return Optional.of(jdbcTemplate.queryForObject("SELECT id, fst_nm as firstName, lst_nm as lastName, email as email from user where id = ?", new Object[] {
                 id
             },
             new BeanPropertyRowMapper < User > (User.class)));
@@ -53,7 +53,7 @@ public class UserRepository {
 
     public Optional < User > checkIfEmailUnavailable(String email) {
         try {
-            return Optional.of(jdbcTemplate.queryForObject("SELECT ID, FST_NM as firstName, LST_NM as lastName, EMAIL as email from user where email=?", new Object[] {
+            return Optional.of(jdbcTemplate.queryForObject("SELECT id, fst_nm as firstName, lst_nm as lastName, email as email from user where email = ?", new Object[] {
                 email
             },
             new BeanPropertyRowMapper< User >(User.class)));
@@ -63,27 +63,27 @@ public class UserRepository {
         }
     }
     public Optional < User > findByEmail(String email) {
-        return Optional.of(jdbcTemplate.queryForObject("SELECT ID, FST_NM as firstName, LST_NM as lastName, EMAIL as email from user where email=?", new Object[] {
+        return Optional.of(jdbcTemplate.queryForObject("SELECT id, fst_nm as firstName, lst_nm as lastName, email as email, password_nm as password from user where email= ?", new Object[] {
             email
         },
         new BeanPropertyRowMapper< User >(User.class)));
     }
 
     public int delete(long id) {
-        return jdbcTemplate.update("delete from user where id=?", new Object[] {
+        return jdbcTemplate.update("delete from user where id = ?", new Object[] {
             id
         });
     }
 
     public int save(User user) {
-        return jdbcTemplate.update("INSERT INTO user (ID, FST_NM, LST_NM, EMAIL, CRTE_TM, CRTE_BY_ACCT_KEY, ACT_IND) " + "values(?, ?, ?, ?, NOW(), ?, ?)",
+        return jdbcTemplate.update("INSERT INTO user (id, fst_nm, lst_nm, email, password_nm, crte_tm, crte_by_acct_key, act_ind) " + "values(?, ?, ?, ?, ?, NOW(), ?, ?)",
             new Object[] {
-                user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), 1, 1
+                user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), 1, 1
             });
     }
 
     public int update(User user) {
-        return jdbcTemplate.update("update user " + " set FST_NM = ?, LST_NM = ?, EMAIL = ?, LST_UPDT_TM = NOW(), LST_UPDT_BY_ACCT_KEY = ?" + " where id = ?",
+        return jdbcTemplate.update("update user " + " set fst_nm = ?, lst_nm = ?, email = ?, lst_updt_tm = NOW(), lst_updt_by_acct_key = ?" + " where id = ?",
             new Object[] {
                 user.getFirstName(), user.getLastName(), user.getEmail(), 1, user.getId()
             });

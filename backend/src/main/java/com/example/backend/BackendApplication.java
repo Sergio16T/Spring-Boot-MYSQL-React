@@ -1,12 +1,5 @@
 package com.example.backend;
 
-import java.io.IOException;
-
-import javax.naming.AuthenticationException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.example.backend.filters.JwtRequestFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-// import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @SpringBootApplication
 public class BackendApplication {
@@ -61,12 +54,12 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(myUserDetailsService);
+		auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+		return new BCryptPasswordEncoder();
 	}
 
 	@Override

@@ -8,7 +8,9 @@ const SignUp = ({ history }) => {
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
-        email: ""
+        email: "",
+        password: "",
+        confirmPassword: "",
     });
     const classes = useStyles();
 
@@ -21,16 +23,17 @@ const SignUp = ({ history }) => {
     }
     const submitForm = async (e) => {
         e.preventDefault();
-        const result = await accountService.signUp(state);
-        console.log('result', result)
-        // history.push('/');
+        const { data } = await accountService.signUp(state);
+        console.log('result', data)
+        document.cookie = `jwt=${data.jwt}`;
+        history.push('/');
     }
     return (
         <div className={classes.formContainer}>
             <form
-            className={classes.form}
-            noValidate autoComplete="off"
-            onSubmit={submitForm}
+                className={classes.form}
+                noValidate autoComplete="off"
+                onSubmit={submitForm}
             >
             <fieldset className={classes.root}>
                 <TextField

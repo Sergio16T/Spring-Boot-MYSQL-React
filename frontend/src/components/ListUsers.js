@@ -1,6 +1,6 @@
 import React, { Component, useState, Fragment } from 'react';
-import userService from '../services/userService'; 
-import Table from '@material-ui/core/Table'; 
+import userService from '../services/userService';
+import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -21,23 +21,23 @@ class ListUsers extends Component {
     }
 
     getUsers = async () => {
-        const { data } = await userService.getUsers(); 
+        const { data } = await userService.getUsers();
         // console.log(data);
         this.setState({
             users: data
         })
     }
     deleteUser = async (id) => {
-        await userService.deleteUser(id); 
-        const users = this.state.users.filter(user => user.id !== id); 
+        await userService.deleteUser(id);
+        const users = this.state.users.filter(user => user.id !== id);
         this.setState({ users });
     }
 
     handleUpdateRedirect = (path) => {
-        this.props.history.push(path); 
-    }; 
+        this.props.history.push(path);
+    };
     render() {
-        const { users } = this.state; 
+        const { users } = this.state;
         return (
             <div className="tableWrapper">
                 <TableContainer component={Paper}>
@@ -51,7 +51,7 @@ class ListUsers extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {users.length ?  users.map((user, index) => 
+                            {users.length ?  users.map((user, index) =>
                             <TableRow key={user.id}>
                                 <TableCell>{user.firstName}</TableCell>
                                 <TableCell>{user.lastName}</TableCell>
@@ -90,24 +90,24 @@ const ActionMenu = ({ children })=> {
     };
 
     const handleClose = () => {
-        setAnchorEl(null); 
+        setAnchorEl(null);
     }
     return (
         <Fragment>
-            <Button 
-            aria-controls="simple-menu" 
-            aria-haspopup="true" 
-            onClick={handleClick}
-            variant="outlined"
+            <Button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+                variant="outlined"
             >
-            Action
+                Action
             </Button>
             <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
             >
               {children}
             </Menu>
