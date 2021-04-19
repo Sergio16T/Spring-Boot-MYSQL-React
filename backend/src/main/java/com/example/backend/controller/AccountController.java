@@ -76,6 +76,9 @@ public class AccountController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
+        Cookie cookie = new Cookie("jwt", jwt);
+		cookie.setMaxAge(60 * 60 * 7); // expires in 7 hours
+		cookie.setHttpOnly(true);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
@@ -99,7 +102,7 @@ public class AccountController {
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		Cookie cookie = new Cookie("jwt", jwt);
-		cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+		cookie.setMaxAge(60 * 60 * 7); // expires in 7 hours
 		cookie.setHttpOnly(true);
 
         // response.addCookie(cookie); // @Revisit: unable to set cookie from server in development. For now set on client
