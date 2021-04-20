@@ -27,7 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/account")
 
 public class AccountController {
     @Autowired
@@ -46,7 +46,7 @@ public class AccountController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // Signup
-    @PostMapping("/account/signup")
+    @PostMapping("/signup")
     public ResponseEntity<?>  signUp(@RequestBody User user) throws InternalServerErrorException {
         Boolean emailUnavailable = userRepository.checkIfEmailUnavailable(user.getEmail()).isPresent();
         if (emailUnavailable) {
@@ -73,7 +73,7 @@ public class AccountController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt, maxAge));
     }
     // Signin
-    @PostMapping("/account/signin")
+    @PostMapping("/signin")
     public ResponseEntity<?>  signIn(@RequestBody User user, HttpServletResponse response) throws InternalServerErrorException {
         User dbUser = userRepository.findByEmail(user.getEmail())
 			.orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + user.getEmail()));

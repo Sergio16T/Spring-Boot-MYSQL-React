@@ -5,7 +5,7 @@ import Appbar from './Appbar';
 import Drawer from './Drawer';
 import useAuth from './hooks/useAuth';
 
-const Page = ({ text, children }) => {
+const Page = ({ text, children, history }) => {
     const { state: { user, loadComplete, error } } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -27,6 +27,7 @@ const Page = ({ text, children }) => {
             <Appbar
                 text={text}
                 toggleDrawer={toggleDrawer}
+                history={history}
             />
             <Drawer
                 isOpen={isOpen}

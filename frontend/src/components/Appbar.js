@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './useStyles/AppBarStyles';
+import UserMenu from './UserMenu';
 
-const Appbar = ({ text, toggleDrawer }) => {
+const Appbar = ({  history, text, toggleDrawer }) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -28,6 +29,7 @@ const Appbar = ({ text, toggleDrawer }) => {
                     >
                         {text}
                     </Typography>
+                    <UserMenu history={history}/>
                 </Toolbar>
             </AppBar>
         </div>

@@ -6,4 +6,7 @@ export default {
     authenticate: () => {
         return axios.get(basePath + "/auth",  { withCredentials: true });
     },
+    logout: () => {
+        return axios.post(basePath + "/signout", { withCredentials: false });
+    }
 };

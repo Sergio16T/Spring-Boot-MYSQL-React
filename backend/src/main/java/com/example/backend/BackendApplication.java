@@ -21,6 +21,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -76,14 +77,21 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// remaining config
 		httpSecurity.cors().and()
-		.csrf().disable()
-			.authorizeRequests().antMatchers("/api/v1/account/signup", "/api/v1/account/signin").permitAll()
+			.csrf().disable()
+			.authorizeRequests().antMatchers("/api/v1/account/signup", "/api/v1/account/signin", "/api/v1/signout").permitAll()
 				.anyRequest().authenticated().and()
 				.exceptionHandling()
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
+		// Review - may be able to remove
+		httpSecurity.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/login")
+		.invalidateHttpSession(true)        // set invalidation state when logout
+		.deleteCookies("jwt");
 	}
 
 	@Bean
