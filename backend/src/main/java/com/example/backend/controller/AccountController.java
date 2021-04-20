@@ -3,8 +3,6 @@ package com.example.backend.controller;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.services.MyUserDetailsService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.backend.exception.InternalServerErrorException;
@@ -13,29 +11,17 @@ import com.example.backend.model.AuthenticationResponse;
 import com.example.backend.model.User;
 import com.example.backend.utilities.JwtUtil;
 
-// import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.DeleteMapping;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RequestMethod;
-// import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.access.AccessDeniedException;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-// import java.util.HashMap;
-// import java.util.List;
-// import java.util.Map;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -76,11 +62,15 @@ public class AccountController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-        Cookie cookie = new Cookie("jwt", jwt);
-		cookie.setMaxAge(60 * 60 * 7); // expires in 7 hours
-		cookie.setHttpOnly(true);
+        String maxAge = String.valueOf(60 * 60 * 7);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        // Cookie cookie = new Cookie("jwt", jwt);
+		// cookie.setMaxAge(60 * 60 * 7); // expires in 7 hours
+		// cookie.setHttpOnly(true);
+        // response.addHeader("access-control-expose-headers", "Set-Cookie");
+        // response.addCookie(cookie); // @Revisit: unable to set cookie from server in development. For now set on client
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt, maxAge));
     }
     // Signin
     @PostMapping("/account/signin")
@@ -101,24 +91,16 @@ public class AccountController {
 		System.out.println(userDetails);
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		Cookie cookie = new Cookie("jwt", jwt);
-		cookie.setMaxAge(60 * 60 * 7); // expires in 7 hours
-		cookie.setHttpOnly(true);
+        String maxAge = String.valueOf(60 * 60 * 7); // expires in 7 hours
+        // String maxAge = String.valueOf(5);
 
+		// Cookie cookie = new Cookie("jwt", jwt);
+		// cookie.setMaxAge(60 * 60 * 7); // expires in 7 hours
+		// cookie.setHttpOnly(true);
+        // response.addHeader("access-control-expose-headers", "Set-Cookie");
         // response.addCookie(cookie); // @Revisit: unable to set cookie from server in development. For now set on client
-		response.addHeader("Access-Control-Allow-Credentials", "true");
+		// response.addHeader("Access-Control-Allow-Credentials", "true");
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        return ResponseEntity.ok(new AuthenticationResponse(jwt, maxAge));
     }
-    // Authenticate
-    @GetMapping("/account/auth")
-    public ResponseEntity< ? > authenticate(HttpServletRequest request, HttpServletResponse response) throws AccessDeniedException {
-            String username =  SecurityContextHolder.getContext().getAuthentication().getName();
-
-            User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new AccessDeniedException("Unable to find user with user name: " + username));
-
-            return ResponseEntity.ok(user);
-    }
-
 }

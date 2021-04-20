@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from 'react';
-import accountService from '../../services/accountService';
+import authService from '../../services/authService';
 
 const initialState = {
     user: null,
@@ -34,7 +34,7 @@ const useAuth = () => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const { data } = await accountService.authenticate();
+                const { data } = await authService.authenticate();
                 console.log(data);
                 dispatch({
                     type: "SUCCESSFUL_AUTH",

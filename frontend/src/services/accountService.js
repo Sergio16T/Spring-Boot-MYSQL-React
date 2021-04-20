@@ -7,9 +7,6 @@ export default {
         return axios.post(basePath + "/signup", data);
     },
     signIn: (data) => {
-        return axios.post(basePath + "/signin", data);
-    },
-    authenticate: () => {
-        return axios.get(basePath + "/auth",  { withCredentials: true });
+        return axios.post(basePath + "/signin", data, { withCredentials: true });
     },
 };

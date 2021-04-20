@@ -22,7 +22,7 @@ const SignIn = ({ history }) => {
         e.preventDefault();
         const { data } = await accountService.signIn(state);
         console.log('result', data);
-        document.cookie = `jwt=${data.jwt}`;
+        document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
         history.push('/');
     }
     return (

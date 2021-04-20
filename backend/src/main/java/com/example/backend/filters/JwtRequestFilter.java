@@ -34,7 +34,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Credentials", "true");
         String username = null;
         String jwt = null;
         UserDetails userDetails = null;
