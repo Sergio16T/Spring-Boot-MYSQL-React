@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case "SUCCESSFUL_AUTH": {
             return {
                 user: action.data,

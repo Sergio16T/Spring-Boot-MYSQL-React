@@ -25,8 +25,9 @@ class ListUsers extends Component {
         // console.log(data);
         this.setState({
             users: data
-        })
+        });
     }
+
     deleteUser = async (id) => {
         await userService.deleteUser(id);
         const users = this.state.users.filter(user => user.id !== id);
@@ -35,7 +36,8 @@ class ListUsers extends Component {
 
     handleUpdateRedirect = (path) => {
         this.props.history.push(path);
-    };
+    }
+
     render() {
         const { users } = this.state;
         return (
@@ -51,29 +53,29 @@ class ListUsers extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {users.length ?  users.map((user, index) =>
-                            <TableRow key={user.id}>
-                                <TableCell>{user.firstName}</TableCell>
-                                <TableCell>{user.lastName}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>
-                                    <ActionMenu>
-                                            <MenuItem
-                                            onClick={() => this.handleUpdateRedirect(`/update-user/${user.id}`)}
-                                            key='item1'
-                                            >
-                                                Update User
-                                            </MenuItem>
-                                            <MenuItem
-                                            onClick={() => this.deleteUser(user.id)}
-                                            key='item2'
-                                            >
-                                                Delete User
-                                            </MenuItem>
-                                    </ActionMenu>
-                                </TableCell>
-                            </TableRow>
-                            ): null}
+                            {users.length ? users.map((user) =>
+                                <TableRow key={user.id}>
+                                    <TableCell>{user.firstName}</TableCell>
+                                    <TableCell>{user.lastName}</TableCell>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>
+                                        <ActionMenu>
+                                                <MenuItem
+                                                    onClick={() => this.handleUpdateRedirect(`/update-user/${user.id}`)}
+                                                    key='item1'
+                                                >
+                                                    Update User
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={() => this.deleteUser(user.id)}
+                                                    key='item2'
+                                                >
+                                                    Delete User
+                                                </MenuItem>
+                                        </ActionMenu>
+                                    </TableCell>
+                                </TableRow>
+                            ) : null}
                         </TableBody>
                     </Table>
                 </TableContainer>

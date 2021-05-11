@@ -5,7 +5,10 @@ import ListUsers from '../components/ListUsers';
 
 function Users({ history }) {
     return (
-        <Page text="Users" history={history}>
+        <Page
+            text="Users"
+            history={history}
+        >
             <ListUsers history={history}/>
         </Page>
     );

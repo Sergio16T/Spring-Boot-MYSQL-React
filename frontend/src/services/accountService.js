@@ -9,4 +9,7 @@ export default {
     signIn: (data) => {
         return axios.post(basePath + "/signin", data, { withCredentials: true });
     },
+    signOut: () => {
+        return axios.post(basePath + "/signout", { withCredentials: false });
+    },
 };

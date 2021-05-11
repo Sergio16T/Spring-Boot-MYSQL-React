@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import authService from '../services/authService';
+import accountService from '../services/accountService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,7 +40,7 @@ const UserMenu = ({ history }) => {
 
     const logOut = async () => {
         try {
-            await authService.logout();
+            await accountService.signOut();
             document.cookie = "jwt=; expires=0;"
             history.push("/signin");
         }  catch (err) {

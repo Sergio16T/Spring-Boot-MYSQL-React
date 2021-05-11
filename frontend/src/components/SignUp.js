@@ -35,39 +35,39 @@ const SignUp = ({ history }) => {
                 noValidate autoComplete="off"
                 onSubmit={submitForm}
             >
-            <fieldset className={classes.root}>
-                <TextField
-                    label="First name"
-                    name="firstName"
-                    value={state.firstName}
-                    onChange={handleInputChange}
-                />
-                <TextField
-                    label="Last name"
-                    name="lastName"
-                    value={state.lastName}
-                    onChange={handleInputChange}
-                />
-                <TextField
-                    label="Email"
-                    name="email"
-                    value={state.email}
-                    onChange={handleInputChange}
-                />
-                <TextField
-                    type="password"
-                    label="Password"
-                    name="password"
-                    value={state.password}
-                    onChange={handleInputChange}
-                />
-                <TextField
-                    type="password"
-                    label="Confirm Password"
-                    name="confirmPassword"
-                    value={state.confirmPassword}
-                    onChange={handleInputChange}
-                />
+                <fieldset className={classes.root}>
+                    <TextField
+                        label="First name"
+                        name="firstName"
+                        value={state.firstName}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        label="Last name"
+                        name="lastName"
+                        value={state.lastName}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        label="Email"
+                        name="email"
+                        value={state.email}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        type="password"
+                        label="Password"
+                        name="password"
+                        value={state.password}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        type="password"
+                        label="Confirm Password"
+                        name="confirmPassword"
+                        value={state.confirmPassword}
+                        onChange={handleInputChange}
+                    />
                 </fieldset>
                 <Button
                     type="submit"
@@ -76,8 +76,8 @@ const SignUp = ({ history }) => {
                 >
                     Signup
                 </Button>
-        </form>
-    </div>
+            </form>
+        </div>
     );
 };
 

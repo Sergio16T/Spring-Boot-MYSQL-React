@@ -38,19 +38,19 @@ export default function SideDrawer({ isOpen, toggleDrawer }) {
             onClick={toggleDrawer}
             onKeyDown={toggleDrawer}
         >
-        <List>
-                <ListItemLink to="/" primary="Users" icon={<GroupIcon/>} button/>
-                <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
-        </List>
-        <Divider />
-        <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-            </ListItem>
-            ))}
-        </List>
+            <List>
+                    <ListItemLink to="/" primary="Users" icon={<GroupIcon/>} button/>
+                    <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
+            </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListItem button key={text}>
+                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemText primary={text} />
+                </ListItem>
+                ))}
+            </List>
         </div>
     );
 

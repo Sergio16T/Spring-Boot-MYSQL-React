@@ -78,7 +78,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// remaining config
 		httpSecurity.cors().and()
 			.csrf().disable()
-			.authorizeRequests().antMatchers("/api/v1/account/signup", "/api/v1/account/signin", "/api/v1/signout").permitAll()
+			.authorizeRequests().antMatchers("/api/v1/account/signup", "/api/v1/account/signin", "/api/v1/account/signout").permitAll()
 				.anyRequest().authenticated().and()
 				.exceptionHandling()
 				.and()

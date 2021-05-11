@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
         System.out.println(s);
 
         com.example.backend.model.User user = userRepository.findByEmail(s)
-            .orElseThrow(() -> new UsernameNotFoundException("User Name Not Found"));
+            .orElseThrow(() -> new UsernameNotFoundException("Username Not Found: " + s));
 
         return new User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }

@@ -55,7 +55,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
 
-        if (jwt != null) {
+        if (jwt != null && jwt != "") {
             System.out.println("JWT extract");
             username = jwtUtil.extractUsername(jwt);
         }

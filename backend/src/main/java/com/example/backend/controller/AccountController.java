@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.services.MyUserDetailsService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.backend.exception.InternalServerErrorException;
@@ -24,6 +25,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.core.Authentication;
 
 @CrossOrigin
 @RestController
@@ -102,5 +106,15 @@ public class AccountController {
 		// response.addHeader("Access-Control-Allow-Credentials", "true");
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt, maxAge));
+    }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> signOut(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        return ResponseEntity.ok("Logged out");
     }
 }
