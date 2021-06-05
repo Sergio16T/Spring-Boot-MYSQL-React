@@ -1,10 +1,10 @@
 package com.example.backend.controller;
 
-import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.AccountRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.backend.model.User;
+import com.example.backend.model.Account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +18,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class AuthenticateController {
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository userRepository;
 
     @GetMapping("/auth")
-    public ResponseEntity< User > authenticate(HttpServletRequest request, HttpServletResponse response) throws AccessDeniedException {
+    public ResponseEntity< Account > authenticate(HttpServletRequest request, HttpServletResponse response) throws AccessDeniedException {
             String username =  SecurityContextHolder.getContext().getAuthentication().getName();
 
-            User user = userRepository.findByEmail(username)
+            Account user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new AccessDeniedException("Unable to find user with user name: " + username));
 
             return ResponseEntity.ok(user);

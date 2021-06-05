@@ -2,13 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      '& > *': {
-        display: "flex",
-        flexDirection: "column",
-        margin: theme.spacing(2),
-      },
-      padding: "1rem 0",
-      margin: "0"
+        '& > *': {
+            display: "flex",
+            flexDirection: "column",
+            margin: theme.spacing(2),
+        },
+        padding: "1rem 0",
+        margin: "0",
     },
     formContainer: {
         padding: '2rem 1rem',
@@ -28,9 +28,13 @@ const useStyles = makeStyles((theme) => ({
         '& > button' : {
             width: "calc(100% - 32px)",
             margin: "0 auto",
-            padding: ".6rem"
-        }
-    }
-  }));
+            padding: ".6rem",
+        },
+    },
+    errorMessage: {
+        margin: "2rem auto",
+        maxWidth: "50ch",
+    },
+}));
 
-  export default useStyles;
+export default useStyles;

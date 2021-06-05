@@ -1,5 +1,5 @@
 import React, { Component, useState, Fragment } from 'react';
-import userService from '../services/userService';
+import accountService from '../API/accountService';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,23 +13,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 class ListUsers extends Component {
     state = {
-        users: []
+        users: [],
     }
 
     componentDidMount() {
-       this.getUsers();
+        this.getUsers();
     }
 
     getUsers = async () => {
-        const { data } = await userService.getUsers();
+        const { data } = await accountService.getAccountList();
         // console.log(data);
         this.setState({
-            users: data
+            users: data,
         });
     }
 
     deleteUser = async (id) => {
-        await userService.deleteUser(id);
+        await accountService.deleteAccount(id);
         const users = this.state.users.filter(user => user.id !== id);
         this.setState({ users });
     }
@@ -40,6 +40,7 @@ class ListUsers extends Component {
 
     render() {
         const { users } = this.state;
+        if (!users.length) return null;
         return (
             <div className="tableWrapper">
                 <TableContainer component={Paper}>
@@ -53,29 +54,29 @@ class ListUsers extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {users.length ? users.map((user) =>
+                            {users.map((user) =>
                                 <TableRow key={user.id}>
                                     <TableCell>{user.firstName}</TableCell>
                                     <TableCell>{user.lastName}</TableCell>
                                     <TableCell>{user.email}</TableCell>
                                     <TableCell>
                                         <ActionMenu>
-                                                <MenuItem
-                                                    onClick={() => this.handleUpdateRedirect(`/update-user/${user.id}`)}
-                                                    key='item1'
-                                                >
-                                                    Update User
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() => this.deleteUser(user.id)}
-                                                    key='item2'
-                                                >
-                                                    Delete User
-                                                </MenuItem>
+                                            <MenuItem
+                                                onClick={() => this.handleUpdateRedirect(`/update-user/${user.id}`)}
+                                                key='item1'
+                                            >
+                                                Update User
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={() => this.deleteUser(user.id)}
+                                                key='item2'
+                                            >
+                                                Delete User
+                                            </MenuItem>
                                         </ActionMenu>
                                     </TableCell>
-                                </TableRow>
-                            ) : null}
+                                </TableRow>,
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -111,7 +112,7 @@ const ActionMenu = ({ children })=> {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-              {children}
+                {children}
             </Menu>
         </Fragment>
     )

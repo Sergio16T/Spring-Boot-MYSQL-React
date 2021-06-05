@@ -8,8 +8,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './useStyles/AppBarStyles';
 import UserMenu from './UserMenu';
 
-const Appbar = ({  history, text, toggleDrawer }) => {
+const Appbar = ({ history, text, toggleDrawer }) => {
     const classes = useStyles();
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -37,7 +38,7 @@ const Appbar = ({  history, text, toggleDrawer }) => {
 };
 
 Appbar.propTypes = {
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
 };
 
 export default Appbar;

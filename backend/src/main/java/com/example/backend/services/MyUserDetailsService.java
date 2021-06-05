@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.AccountRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         System.out.println("loadUserByUsername: ");
         System.out.println(s);
 
-        com.example.backend.model.User user = userRepository.findByEmail(s)
+        com.example.backend.model.Account user = accountRepository.findByEmail(s)
             .orElseThrow(() -> new UsernameNotFoundException("Username Not Found: " + s));
 
         return new User(user.getEmail(), user.getPassword(), new ArrayList<>());

@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.AccountRepository;
 import com.example.backend.services.MyUserDetailsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.example.backend.exception.InternalServerErrorException;
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.AuthenticationResponse;
-import com.example.backend.model.User;
+import com.example.backend.model.Account;
 import com.example.backend.utilities.JwtUtil;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +34,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.core.Authentication;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/account")
+@RequestMapping("/api/v1")
 
 public class AccountController {
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
 	private AuthenticationManager authenticationManager;
@@ -50,20 +59,20 @@ public class AccountController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // Signup
-    @PostMapping("/signup")
-    public ResponseEntity<?>  signUp(@RequestBody User user) throws InternalServerErrorException {
-        Boolean emailUnavailable = userRepository.checkIfEmailUnavailable(user.getEmail()).isPresent();
+    @PostMapping("/account/signup")
+    public ResponseEntity<?>  signUp(@RequestBody Account account) throws InternalServerErrorException {
+        Boolean emailUnavailable = accountRepository.checkIfEmailUnavailable(account.getEmail()).isPresent();
         if (emailUnavailable) {
             System.out.println("Email Unavailable");
             throw new InternalServerErrorException("Email Unavailable");
         }
 
-        String password = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(password);
+        String password = bCryptPasswordEncoder.encode(account.getPassword());
+        account.setPassword(password);
 
-        userRepository.save(user);
+        accountRepository.save(account);
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(account.getEmail());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
         String maxAge = String.valueOf(60 * 60 * 7);
@@ -77,20 +86,20 @@ public class AccountController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt, maxAge));
     }
     // Signin
-    @PostMapping("/signin")
-    public ResponseEntity<?>  signIn(@RequestBody User user, HttpServletResponse response) throws InternalServerErrorException {
-        User dbUser = userRepository.findByEmail(user.getEmail())
-			.orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + user.getEmail()));
+    @PostMapping("/account/signin")
+    public ResponseEntity<?>  signIn(@RequestBody Account account, HttpServletResponse response) throws InternalServerErrorException {
+        Account dbAccount = accountRepository.findByEmail(account.getEmail())
+			.orElseThrow(() -> new ResourceNotFoundException("Account not found with email: " + account.getEmail()));
 
         try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(dbUser.getEmail(), user.getPassword())
+					new UsernamePasswordAuthenticationToken(dbAccount.getEmail(), account.getPassword())
 			);
 		}
 		catch (BadCredentialsException e) {
             throw new InternalServerErrorException("Incorrect Credentials");
 		}
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(account.getEmail());
 		System.out.println("user details");
 		System.out.println(userDetails);
 
@@ -108,7 +117,7 @@ public class AccountController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt, maxAge));
     }
 
-    @PostMapping("/signout")
+    @PostMapping("/account/signout")
     public ResponseEntity<?> signOut(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
@@ -116,5 +125,52 @@ public class AccountController {
         }
 
         return ResponseEntity.ok("Logged out");
+    }
+
+    // get all accounts
+    @GetMapping("/account")
+    public List<Account> getAllAccounts() {
+        List<Account> account = accountRepository.findAll();
+        return account;
+    }
+
+    // create account
+    @PostMapping("/account")
+    public int createAccount(@RequestBody Account account) {
+        // Need to update to send user invitation to set password and login
+        int newAccountId = accountRepository.save(account);
+        return newAccountId;
+    }
+
+    // get account by id
+    @GetMapping("/account/{id}") // path variable use annotation
+    public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
+        Account account = accountRepository.findById(id) //findById can return optional so this gives us the orElseThrow method as an option
+            .orElseThrow(() -> new ResourceNotFoundException("account not found with id:" + id));
+
+        return ResponseEntity.ok(account);
+    }
+
+    // update account
+    @PutMapping("/account/{id}")
+    public ResponseEntity<Integer> updateaccount(@PathVariable Long id, @RequestBody Account accountDetails) {
+        Account account = accountRepository.findById(id) //findById can return type "optional" so this gives us the orElseThrow method as an option
+            .orElseThrow(() -> new ResourceNotFoundException("account not found with id:" + id));
+
+        account.setFirstName(accountDetails.getFirstName());
+        account.setLastName(accountDetails.getLastName());
+        account.setEmail(accountDetails.getEmail());
+
+        int updatedaccount = accountRepository.update(account);
+        return ResponseEntity.ok(updatedaccount);
+    }
+
+    // delete account
+    @DeleteMapping("/account/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
+         accountRepository.delete(id);
+         Map<String, Boolean> response = new HashMap<>();
+         response.put("Deleted", true);
+         return ResponseEntity.ok(response);
     }
 }

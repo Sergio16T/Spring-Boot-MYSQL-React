@@ -5,25 +5,25 @@ import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import accountService from '../services/accountService';
+import accountService from '../API/accountService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginLeft: 'auto'
+        marginLeft: 'auto',
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     secondaryText: {
-      color:"#6682A0",
-      '&:hover': {
-        color: "#6682A0",
-      }
-    }
-  }));
+        color:"#6682A0",
+        '&:hover': {
+            color: "#6682A0",
+        },
+    },
+}));
 
 const UserMenu = ({ history }) => {
     const classes = useStyles();
@@ -48,7 +48,8 @@ const UserMenu = ({ history }) => {
         }
     }
 
-	const renderLink = React.forwardRef((itemProps, ref) => <Link to="/settings" ref={ref} {...itemProps}/>);
+    const renderLink = React.forwardRef((itemProps, ref) => <Link to="/settings" ref={ref} {...itemProps}/>);
+
     return (
         <Fragment>
             <IconButton

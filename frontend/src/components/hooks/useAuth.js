@@ -1,35 +1,9 @@
-import { useReducer, useEffect } from 'react';
-import authService from '../../services/authService';
-
-const initialState = {
-    user: null,
-    loadComplete: false,
-    error: null,
-};
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case "SUCCESSFUL_AUTH": {
-            return {
-                user: action.data,
-                loadComplete: true,
-                error: null,
-            }
-        }
-        case "FAILED_AUTH": {
-            return {
-                ...state,
-                error: action.error,
-                loadComplete: true,
-            }
-        }
-        default:
-            throw new Error(`Unrecognized action: ${action.type}`);
-    }
-}
+import { useEffect, useContext } from 'react';
+import authService from '../../API/authService';
+import { Context } from '../../App';
 
 const useAuth = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const { state, dispatch } = useContext(Context);
 
     useEffect(() => {
         const getUser = async () => {
@@ -49,7 +23,7 @@ const useAuth = () => {
             }
         }
         getUser();
-    }, []);
+    }, [dispatch]);
 
     return {
         state,

@@ -51,8 +51,10 @@ public class BackendApplication {
 
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private UserDetailsService myUserDetailsService;
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 

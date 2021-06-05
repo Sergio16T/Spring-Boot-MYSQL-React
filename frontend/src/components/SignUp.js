@@ -2,34 +2,46 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useStyles from './useStyles/UserFormStyles';
-import accountService from '../services/accountService';
+import accountService from '../API/accountService';
+import Alert from '@material-ui/lab/Alert';
 
 const SignUp = ({ history }) => {
     const [state, setState] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        firstName: "ang",
+        lastName: "air",
+        email: "ang@gmail.com",
+        password: "test",
+        confirmPassword: "test",
     });
+    const [error, setError] = useState();
+
     const classes = useStyles();
 
     const handleInputChange  = (e) => {
-        const { name , value } = e.target;
+        const { name, value } = e.target;
         setState({
             ...state,
-            [name]: value
+            [name]: value,
         });
     }
     const submitForm = async (e) => {
         e.preventDefault();
-        const { data } = await accountService.signUp(state);
-        console.log('result', data)
-        document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
-        history.push('/');
+        try {
+            const { data } = await accountService.signUp(state);
+            console.log('result', data)
+            document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
+            history.push('/');
+        } catch(err) {
+            console.log(err.response);
+            let { message } = err.response.data;
+            setError(message);
+        }
     }
     return (
         <div className={classes.formContainer}>
+            {error &&
+                <Alert severity="error" className={classes.errorMessage}>{error}</Alert>
+            }
             <form
                 className={classes.form}
                 noValidate autoComplete="off"

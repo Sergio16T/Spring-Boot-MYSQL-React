@@ -16,7 +16,7 @@ import useStyles from './useStyles/DrawerStyles';
 function ListItemLink(props) {
     const { icon, primary, to } = props;
 
-    const renderLink = React.useMemo(() => React.forwardRef((itemProps, ref) => <Link to={to} ref={ref} {...itemProps} />),[to]);
+    const renderLink = React.useMemo(() => React.forwardRef((itemProps, ref) => <Link to={to} ref={ref} {...itemProps} />), [to]);
 
     return (
         <li>
@@ -26,7 +26,7 @@ function ListItemLink(props) {
             </ListItem>
         </li>
     );
-  }
+}
 
 export default function SideDrawer({ isOpen, toggleDrawer }) {
     const classes = useStyles();
@@ -39,16 +39,16 @@ export default function SideDrawer({ isOpen, toggleDrawer }) {
             onKeyDown={toggleDrawer}
         >
             <List>
-                    <ListItemLink to="/" primary="Users" icon={<GroupIcon/>} button/>
-                    <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
+                <ListItemLink to="/" primary="Users" icon={<GroupIcon/>} button/>
+                <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
             </List>
             <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                </ListItem>
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
                 ))}
             </List>
         </div>
@@ -56,9 +56,9 @@ export default function SideDrawer({ isOpen, toggleDrawer }) {
 
     return (
         <Drawer
-          anchor='left'
-          open={isOpen}
-          onClose={toggleDrawer}
+            anchor='left'
+            open={isOpen}
+            onClose={toggleDrawer}
         >
             {list('left')}
         </Drawer>

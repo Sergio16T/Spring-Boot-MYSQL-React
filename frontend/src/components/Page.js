@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Appbar from './Appbar';
-import Drawer from './Drawer';
 import useAuth from './hooks/useAuth';
+import { Context } from '../App';
 
 const Page = ({ text, children, history }) => {
-    const { state: { user, loadComplete, error } } = useAuth();
-    const [isOpen, setIsOpen] = useState(false);
-
-
-    const toggleDrawer = (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setIsOpen(!isOpen);
-    };
+    const { state: { loadComplete, error } } = useAuth();
+    const { toggleDrawer } = useContext(Context);
 
     if (!loadComplete) return null;
     if (error) {
@@ -29,10 +20,6 @@ const Page = ({ text, children, history }) => {
                 toggleDrawer={toggleDrawer}
                 history={history}
             />
-            <Drawer
-                isOpen={isOpen}
-                toggleDrawer={toggleDrawer}
-            />
             {children}
         </div>
     );
@@ -40,7 +27,7 @@ const Page = ({ text, children, history }) => {
 
 Page.propTypes = {
     text: PropTypes.string.isRequired,
-    children: PropTypes.object.isRequired
+    children: PropTypes.object.isRequired,
 };
 
 export default Page;

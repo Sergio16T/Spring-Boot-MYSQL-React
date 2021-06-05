@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
-import userService from '../services/userService';
-import UserForm from './UserForm'; 
-import useStyles from './useStyles/UserFormStyles'; 
+import accountService from '../API/accountService';
+import UserForm from './UserForm';
+import useStyles from './useStyles/UserFormStyles';
 
 const AddUser = ({ history }) => {
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
-        email: ""
+        email: "",
     });
     const classes = useStyles();
 
     const handleInputChange  = (e) => {
-        const { name , value } = e.target; 
+        const { name, value } = e.target;
         setState({
-            ...state, 
-            [name]: value
+            ...state,
+            [name]: value,
         });
     }
     const submitForm = async (e) => {
         e.preventDefault();
-        const result = await userService.addUser(state); 
+        const result = await accountService.addAccount(state);
         console.log(result)
         history.push('/');
     }
     return (
         <UserForm
-        classes={classes}
-        state={state}
-        handleInputChange={handleInputChange}
-        submitForm={submitForm}
-        text="Add User"
+            classes={classes}
+            state={state}
+            handleInputChange={handleInputChange}
+            submitForm={submitForm}
+            text="Add User"
         />
     );
 };
