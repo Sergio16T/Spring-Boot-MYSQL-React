@@ -9,13 +9,11 @@ const useAuth = () => {
         const getUser = async () => {
             try {
                 const { data } = await authService.authenticate();
-                console.log(data);
                 dispatch({
                     type: "SUCCESSFUL_AUTH",
                     data,
                 });
             } catch (err) {
-                console.log(err.response);
                 dispatch({
                     type: "FAILED_AUTH",
                     error: err.response,

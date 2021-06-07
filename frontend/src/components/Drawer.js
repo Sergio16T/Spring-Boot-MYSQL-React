@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -28,12 +27,14 @@ function ListItemLink(props) {
     );
 }
 
-export default function SideDrawer({ isOpen, toggleDrawer }) {
-    const classes = useStyles();
 
-    const list = (anchor) => (
+
+
+const DrawerList = ({ anchor, toggleDrawer }) => {
+    const classes = useStyles();
+    return (
         <div
-            className={clsx(classes.list, { [classes.fullList]: anchor === 'top' || anchor === 'bottom' })}
+            className={`${classes.list} ${anchor === 'top' || anchor === 'bottom'  ? classes.fullList : ''}`}
             role="presentation"
             onClick={toggleDrawer}
             onKeyDown={toggleDrawer}
@@ -53,14 +54,19 @@ export default function SideDrawer({ isOpen, toggleDrawer }) {
             </List>
         </div>
     );
+}
 
+export default function SideDrawer({ isOpen, toggleDrawer }) {
     return (
         <Drawer
             anchor='left'
             open={isOpen}
             onClose={toggleDrawer}
         >
-            {list('left')}
+            <DrawerList
+                anchor='left'
+                toggleDrawer={toggleDrawer}
+            />
         </Drawer>
     );
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import accountService from '../API/accountService';
+import { Context } from '../App';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserMenu = ({ history }) => {
+    const { dispatch } = useContext(Context);
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -42,6 +44,7 @@ const UserMenu = ({ history }) => {
         try {
             await accountService.signOut();
             document.cookie = "jwt=; expires=0;"
+            dispatch({ type: "RESET_INITIAL_STATE" });
             history.push("/signin");
         }  catch (err) {
             console.log(err);

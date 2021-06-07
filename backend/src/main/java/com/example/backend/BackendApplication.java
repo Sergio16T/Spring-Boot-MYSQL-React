@@ -90,10 +90,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Review - may be able to remove
 		httpSecurity.logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login")
-		.invalidateHttpSession(true)        // set invalidation state when logout
-		.deleteCookies("jwt");
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/login")
+			.invalidateHttpSession(true)        // set invalidation state when logout
+			.deleteCookies("jwt");
 	}
 
 	@Bean

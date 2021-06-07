@@ -161,8 +161,8 @@ public class AccountController {
         account.setLastName(accountDetails.getLastName());
         account.setEmail(accountDetails.getEmail());
 
-        int updatedaccount = accountRepository.update(account);
-        return ResponseEntity.ok(updatedaccount);
+        int updatedAccount = accountRepository.update(account);
+        return ResponseEntity.ok(updatedAccount);
     }
 
     // delete account

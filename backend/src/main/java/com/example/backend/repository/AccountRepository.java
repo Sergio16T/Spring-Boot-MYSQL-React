@@ -53,7 +53,7 @@ public class AccountRepository {
         return Optional.of(jdbcTemplate.queryForObject(query, new Object[] {
                 id
             },
-            new BeanPropertyRowMapper < Account > (Account.class)));
+            new BeanPropertyRowMapper <Account> (Account.class)));
     }
 
     public Optional <Account> checkIfEmailUnavailable(String email) {

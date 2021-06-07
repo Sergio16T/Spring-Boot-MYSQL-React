@@ -21,15 +21,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RequestMapping("/api/v1")
 public class AuthenticateController {
     @Autowired
-    private AccountRepository userRepository;
+    private AccountRepository accountRepository;
 
     @GetMapping("/auth")
     public ResponseEntity< Account > authenticate(HttpServletRequest request, HttpServletResponse response) throws AccessDeniedException {
             String username =  SecurityContextHolder.getContext().getAuthentication().getName();
 
-            Account user = userRepository.findByEmail(username)
+            Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new AccessDeniedException("Unable to find user with user name: " + username));
 
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(account);
     }
 }

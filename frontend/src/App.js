@@ -5,7 +5,6 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-
 import Users from './pages/Users';
 import AddUser from './pages/AddUser';
 import UpdateUser from './pages/UpdateUser';
@@ -36,6 +35,9 @@ const reducer = (state, action) => {
                 error: action.error,
                 loadComplete: true,
             }
+        }
+        case 'RESET_INITIAL_STATE': {
+            return initialState;
         }
         case "TOGGLE_DRAWER": {
             return {
