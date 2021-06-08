@@ -1,5 +1,10 @@
 import React, { useReducer } from 'react';
+import './styles/index.scss';
 import './App.scss';
+import {
+    createMuiTheme,
+    ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core/styles';
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,7 +16,22 @@ import UpdateUser from './pages/UpdateUser';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Drawer from './components/Drawer';
+import LandingPage from './pages/LandingPage';
+import Settings from './pages/Settings';
 
+const muiTheme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#222222",
+        },
+        secondary: {
+            main: "#FF385C",
+        },
+        white: {
+            main: "#FFFFFF",
+        },
+    },
+});
 
 const initialState = {
     user: null,
@@ -72,23 +92,27 @@ function App() {
 
     return (
         <Router>
-            <Context.Provider value={context}>
-                <div className="App">
-                    {state.user &&
-                        <Drawer
-                            isOpen={state.isOpen}
-                            toggleDrawer={toggleDrawer}
-                        />
-                    }
-                    <Switch>
-                        <Route exact path ="/signup" component={SignUp}/>
-                        <Route exact path ="/signin" component={SignIn}/>
-                        <Route exact path="/" component={Users}/>
-                        <Route path="/adduser" component={AddUser}/>
-                        <Route path="/update-user/:id" component={UpdateUser}/>
-                    </Switch>
-                </div>
-            </Context.Provider>
+            <MuiThemeProvider theme={muiTheme}>
+                <Context.Provider value={context}>
+                    <div className="App">
+                        {state.user &&
+                            <Drawer
+                                isOpen={state.isOpen}
+                                toggleDrawer={toggleDrawer}
+                            />
+                        }
+                        <Switch>
+                            <Route exact path="/"  component={LandingPage}/>
+                            <Route exact path ="/signup" component={SignUp}/>
+                            <Route exact path ="/signin" component={SignIn}/>
+                            <Route exact path="/users" component={Users}/>
+                            <Route path="/adduser" component={AddUser}/>
+                            <Route path="/update-user/:id" component={UpdateUser}/>
+                            <Route exact path="/settings" component={Settings}/>
+                        </Switch>
+                    </div>
+                </Context.Provider>
+            </MuiThemeProvider>
         </Router>
     );
 }

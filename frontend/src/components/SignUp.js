@@ -30,7 +30,7 @@ const SignUp = ({ history }) => {
             const { data } = await accountService.signUp(state);
             console.log('result', data)
             document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
-            history.push('/');
+            history.push('/users');
         } catch(err) {
             console.log(err.response);
             let { message } = err.response.data;
@@ -40,7 +40,7 @@ const SignUp = ({ history }) => {
     return (
         <div className={classes.formContainer}>
             {error &&
-                <Alert severity="error" className={classes.errorMessage}>{error}</Alert>
+                <Alert severity="error" variant="filled" className={classes.errorMessage}>{error}</Alert>
             }
             <form
                 className={classes.form}
@@ -84,7 +84,7 @@ const SignUp = ({ history }) => {
                 <Button
                     type="submit"
                     variant ="contained"
-                    color="primary"
+                    color="secondary"
                 >
                     Signup
                 </Button>

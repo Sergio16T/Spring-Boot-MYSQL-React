@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
         border: "1px solid rgb(217, 228, 236)",
         borderRadius: "4px",
         boxShadow: "rgba(51, 51, 51, 0.2) 1px 1px 4px 1px",
+        // boxShadow: "0px 6px 20px rgb(0 0 0 / 20%)",
         '& > button' : {
             width: "calc(100% - 32px)",
             margin: "0 auto",

@@ -1,9 +1,12 @@
 import React from 'react';
 import SignIn from '../components/SignIn';
+import HomeLayout from '../components/HomeLayout';
 
 const SignInPage = ({ history }) => {
     return (
-        <SignIn history={history}/>
+        <HomeLayout>
+            <SignIn history={history}/>
+        </HomeLayout>
     );
 };
 

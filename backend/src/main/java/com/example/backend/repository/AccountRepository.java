@@ -63,7 +63,7 @@ public class AccountRepository {
             return Optional.of(jdbcTemplate.queryForObject(query, new Object[] {
                 email
             },
-            new BeanPropertyRowMapper< Account >(Account.class)));
+            new BeanPropertyRowMapper<Account>(Account.class)));
         } catch (EmptyResultDataAccessException e) {
             System.out.println("Email Available");
             return Optional.empty();

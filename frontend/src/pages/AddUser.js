@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from '../components/Page';
+import Page from '../components/PageLayout';
 import AddUser from '../components/AddUser';
 
 const AddUserPage = ({ history }) => {

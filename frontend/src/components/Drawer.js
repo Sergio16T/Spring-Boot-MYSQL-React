@@ -40,7 +40,7 @@ const DrawerList = ({ anchor, toggleDrawer }) => {
             onKeyDown={toggleDrawer}
         >
             <List>
-                <ListItemLink to="/" primary="Users" icon={<GroupIcon/>} button/>
+                <ListItemLink to="/users" primary="Users" icon={<GroupIcon/>} button/>
                 <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
             </List>
             <Divider />

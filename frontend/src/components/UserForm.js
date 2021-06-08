@@ -36,7 +36,7 @@ const UserForm = ({ classes, state, submitForm, handleInputChange, text }) => {
                 <Button
                     type="submit"
                     variant ="contained"
-                    color="primary"
+                    color="secondary"
                 >
                     {text}
                 </Button>

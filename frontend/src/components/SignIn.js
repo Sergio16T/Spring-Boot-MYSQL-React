@@ -26,7 +26,7 @@ const SignIn = ({ history }) => {
             const { data } = await accountService.signIn(state);
             console.log('result', data);
             document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
-            history.push('/');
+            history.push('/users');
         } catch (err) {
             let { message } = err.response.data;
             setError(message);
@@ -35,7 +35,7 @@ const SignIn = ({ history }) => {
     return (
         <div className={classes.formContainer}>
             {error &&
-                <Alert severity="error" className={classes.errorMessage}>{error}</Alert>
+                <Alert severity="error" variant="filled" className={classes.errorMessage}>{error}</Alert>
             }
             <form
                 className={classes.form}
@@ -60,7 +60,7 @@ const SignIn = ({ history }) => {
                 <Button
                     type="submit"
                     variant ="contained"
-                    color="primary"
+                    color="secondary"
                 >
                     Sign In
                 </Button>
