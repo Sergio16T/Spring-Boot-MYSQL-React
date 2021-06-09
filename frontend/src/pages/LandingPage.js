@@ -5,9 +5,10 @@ import Map from './Map/Map';
 const LandingPage = () => {
     return (
         <HomeLayout>
-            {/* <div className="landing-page"> */}
-            <Map/>
-            {/* </div> */}
+            <div className="page-container">
+                <div id="info"></div>
+                <Map/>
+            </div>
         </HomeLayout>
     );
 };
