@@ -5,16 +5,18 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class User {
-    
+@Table(name="ACCOUNT")
+public class Account {
+
     @Id
     @Column(name="ID")
-    private long id; 
+    private long id;
 
     @Column(name="FST_NM")
-    private String firstName; 
+    private String firstName;
 
     @Column(name="LST_NM")
     private String lastName;
@@ -23,39 +25,39 @@ public class User {
     private String email;
 
     @Column(name="PASSWORD_NM")
-    private String password; 
+    private String password;
 
     @Column(name="RESET_TOKEN")
-    private String resetToken; 
+    private String resetToken;
 
     @Column(name="RESET_TOKEN_EXPIRY")
-    private String resetTokenExpiration; 
+    private String resetTokenExpiration;
 
     @Column(name="CRTE_TM")
-    private Timestamp createTime; 
+    private Timestamp createTime;
 
     @Column(name="CRTE_BY_ACCT_KEY")
-    private long createByAccountKey; 
+    private long createByAccountKey;
 
     @Column(name="LST_UPDT_TM")
-    private Timestamp lastUpdateTime; 
+    private Timestamp lastUpdateTime;
 
     @Column(name="LST_UPDT_BY_ACCT_KEY")
-    private long lastUpdateByAccountKey; 
+    private long lastUpdateByAccountKey;
 
     @Column(name="ACT_IND")
-    private int activeIndicator; 
+    private int activeIndicator;
 
-    public User() {
+    public Account() {
 
     }
-    public User(String firstName, String lastName, String email, Integer activeIndicator) {
+    public Account(String firstName, String lastName, String email, Integer activeIndicator) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.activeIndicator = activeIndicator;
     }
-    
+
     public long getId() {
         return id;
     }
@@ -152,5 +154,5 @@ public class User {
         this.activeIndicator = activeIndicator;
     }
 
-    
+
 }

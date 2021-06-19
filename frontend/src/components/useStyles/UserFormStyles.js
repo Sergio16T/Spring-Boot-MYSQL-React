@@ -1,14 +1,14 @@
-import { makeStyles, withTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      '& > *': {
-        display: "flex",
-        flexDirection: "column",
-        margin: theme.spacing(2),
-      },
-      padding: "1rem 0",
-      margin: "0"
+        '& > *': {
+            display: "flex",
+            flexDirection: "column",
+            margin: theme.spacing(2),
+        },
+        padding: "1rem 0",
+        margin: "0",
     },
     formContainer: {
         padding: '2rem 1rem',
@@ -25,12 +25,17 @@ const useStyles = makeStyles((theme) => ({
         border: "1px solid rgb(217, 228, 236)",
         borderRadius: "4px",
         boxShadow: "rgba(51, 51, 51, 0.2) 1px 1px 4px 1px",
+        // boxShadow: "0px 6px 20px rgb(0 0 0 / 20%)",
         '& > button' : {
             width: "calc(100% - 32px)",
             margin: "0 auto",
-            padding: ".6rem"
-        }
-    }
-  }));
+            padding: ".6rem",
+        },
+    },
+    errorMessage: {
+        margin: "2rem auto",
+        maxWidth: "50ch",
+    },
+}));
 
-  export default useStyles;
+export default useStyles;

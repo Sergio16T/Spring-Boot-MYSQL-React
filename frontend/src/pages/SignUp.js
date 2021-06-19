@@ -1,9 +1,12 @@
 import React from 'react';
-import SignUp from '../components/SignUp'; 
+import SignUp from '../components/SignUp';
+import HomeLayout from '../components/HomeLayout';
 
 const SignUpPage = ({ history }) => {
     return (
-        <SignUp history={history}/>
+        <HomeLayout>
+            <SignUp history={history}/>
+        </HomeLayout>
     );
 };
 

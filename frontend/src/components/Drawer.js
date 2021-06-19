@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -15,48 +14,59 @@ import useStyles from './useStyles/DrawerStyles';
 
 function ListItemLink(props) {
     const { icon, primary, to } = props;
-  
-    const renderLink = React.useMemo(() => React.forwardRef((itemProps, ref) => <Link to={to} ref={ref} {...itemProps} />),[to]);
-  
+
+    const renderLink = React.useMemo(() => React.forwardRef((itemProps, ref) => <Link to={to} ref={ref} {...itemProps} />), [to]);
+
     return (
-      <li>
-        <ListItem button component={renderLink}>
-          {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-          <ListItemText primary={primary} />
-        </ListItem>
-      </li>
+        <li>
+            <ListItem button component={renderLink}>
+                {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+                <ListItemText primary={primary} />
+            </ListItem>
+        </li>
     );
-  }
+}
 
-export default function SideDrawer({ state, toggleDrawer }) {
-  const classes = useStyles();
 
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, { [classes.fullList]: anchor === 'top' || anchor === 'bottom' })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-            <ListItemLink to="/" primary="Users" icon={<GroupIcon/>} button/>
-            <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
 
-  return (
-    <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
-        {list('left')}
-    </Drawer>
-  ); 
+
+const DrawerList = ({ anchor, toggleDrawer }) => {
+    const classes = useStyles();
+    return (
+        <div
+            className={`${classes.list} ${anchor === 'top' || anchor === 'bottom'  ? classes.fullList : ''}`}
+            role="presentation"
+            onClick={toggleDrawer}
+            onKeyDown={toggleDrawer}
+        >
+            <List>
+                <ListItemLink to="/users" primary="Users" icon={<GroupIcon/>} button/>
+                <ListItemLink to="/adduser" primary="Add user" icon={<PersonAddIcon/>} button/>
+            </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+        </div>
+    );
+}
+
+export default function SideDrawer({ isOpen, toggleDrawer }) {
+    return (
+        <Drawer
+            anchor='left'
+            open={isOpen}
+            onClose={toggleDrawer}
+        >
+            <DrawerList
+                anchor='left'
+                toggleDrawer={toggleDrawer}
+            />
+        </Drawer>
+    );
 }

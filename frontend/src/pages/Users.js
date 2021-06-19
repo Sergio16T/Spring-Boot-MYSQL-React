@@ -1,11 +1,14 @@
 import React from 'react';
-import Page from '../components/Page';
-import ListUsers from '../components/ListUsers'; 
+import Page from '../components/PageLayout';
+import ListUsers from '../components/ListUsers';
 
 
 function Users({ history }) {
     return (
-        <Page text="Users">
+        <Page
+            text="Users"
+            history={history}
+        >
             <ListUsers history={history}/>
         </Page>
     );
