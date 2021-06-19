@@ -22,13 +22,11 @@ import Settings from './pages/Settings';
 const muiTheme = createMuiTheme({
     palette: {
         primary: {
-            main: "#222222",
+            // main: "#222222",
+            main:  "#FFFFFF",
         },
         secondary: {
             main: "#FF385C",
-        },
-        white: {
-            main: "#FFFFFF",
         },
     },
 });

@@ -25,7 +25,7 @@ public class AuthenticateController {
 
     @GetMapping("/auth")
     public ResponseEntity< Account > authenticate(HttpServletRequest request, HttpServletResponse response) throws AccessDeniedException {
-            String username =  SecurityContextHolder.getContext().getAuthentication().getName();
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
             Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new AccessDeniedException("Unable to find user with user name: " + username));

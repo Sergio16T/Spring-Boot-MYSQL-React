@@ -14,7 +14,7 @@ const Appbar = ({ history, text, toggleDrawer }) => {
 
     return (
         <div >
-            <AppBar position="static" color="white" className={classes.root}>
+            <AppBar position="static" color="primary" className={classes.root}>
                 <Toolbar>
                     <IconButton
                         onClick={toggleDrawer}

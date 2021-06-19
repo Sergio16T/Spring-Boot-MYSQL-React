@@ -1,5 +1,7 @@
 package com.example.backend.services;
 
+import com.example.backend.model.Account;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        com.example.backend.model.Account user = accountRepository.findByEmail(s)
+        Account user = accountRepository.findByEmail(s)
             .orElseThrow(() -> new UsernameNotFoundException("Username Not Found: " + s));
 
         return new User(user.getEmail(), user.getPassword(), new ArrayList<>());

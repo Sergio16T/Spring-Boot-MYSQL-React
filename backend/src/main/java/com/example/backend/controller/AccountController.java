@@ -60,7 +60,7 @@ public class AccountController {
 
     // Signup
     @PostMapping("/account/signup")
-    public ResponseEntity<?>  signUp(@RequestBody Account account) throws InternalServerErrorException {
+    public ResponseEntity<?> signUp(@RequestBody Account account, HttpServletResponse response) throws InternalServerErrorException {
         Boolean emailUnavailable = accountRepository.checkIfEmailUnavailable(account.getEmail()).isPresent();
         if (emailUnavailable) {
             System.out.println("Email Unavailable");
