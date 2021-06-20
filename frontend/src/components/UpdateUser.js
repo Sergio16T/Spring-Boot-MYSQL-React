@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import accountService from '../API/accountService';
-import UserForm from './UserForm';
+import UserForm from './Forms/UserForm';
 import useStyles from './useStyles/UserFormStyles';
 
 const UpdateUser = ({ history, match }) => {

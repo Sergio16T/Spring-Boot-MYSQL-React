@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import accountService from '../API/accountService';
-import { Context } from '../App';
+import accountService from '../../API/accountService';
+import { Context } from '../../App';
 
 const useStyles = makeStyles((theme) => ({
     root: {

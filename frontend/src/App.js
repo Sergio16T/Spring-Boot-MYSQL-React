@@ -15,7 +15,7 @@ import AddUser from './pages/AddUser';
 import UpdateUser from './pages/UpdateUser';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
-import Drawer from './components/Drawer';
+import Drawer from './components/Layout/Drawer';
 import LandingPage from './pages/LandingPage';
 import Settings from './pages/Settings';
 
@@ -42,6 +42,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "SUCCESSFUL_AUTH": {
             return {
+                ...state,
                 user: action.data,
                 loadComplete: true,
                 error: null,

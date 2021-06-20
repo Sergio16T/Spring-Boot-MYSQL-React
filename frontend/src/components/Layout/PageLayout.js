@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Appbar from './Appbar';
-import useAuth from './hooks/useAuth';
-import { Context } from '../App';
+import useAuth from '../Hooks/useAuth';
+import { Context } from '../../App';
 
 const Page = ({ children, history, text }) => {
     const { state } = useAuth();

@@ -1,6 +1,6 @@
 import React from 'react';
-import HomeLayout from '../components/HomeLayout';
-import Map from './Map/Map';
+import HomeLayout from '../components/Layout/HomeLayout';
+import Map from '../components/Map/Map';
 
 const LandingPage = () => {
     return (
