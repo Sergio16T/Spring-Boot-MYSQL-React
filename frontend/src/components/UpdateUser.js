@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import accountService from '../API/accountService';
-import UserForm from './UserForm';
+import UserForm from './Forms/UserForm';
 import useStyles from './useStyles/UserFormStyles';
 
 const UpdateUser = ({ history, match }) => {
@@ -26,11 +26,13 @@ const UpdateUser = ({ history, match }) => {
             [name]: value,
         });
     }
+
     const submitForm = async (e) => {
         e.preventDefault();
         await accountService.updateAccount(match.params.id, state);
         history.push('/');
     }
+
     return (
         <UserForm
             classes={classes}

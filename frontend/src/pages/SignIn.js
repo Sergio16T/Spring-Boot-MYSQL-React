@@ -1,6 +1,6 @@
 import React from 'react';
 import SignIn from '../components/SignIn';
-import HomeLayout from '../components/HomeLayout';
+import HomeLayout from '../components/Layout/HomeLayout';
 
 const SignInPage = ({ history }) => {
     return (

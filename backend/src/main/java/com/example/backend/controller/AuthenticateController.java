@@ -28,7 +28,7 @@ public class AuthenticateController {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
             Account account = accountRepository.findByEmail(username)
-                .orElseThrow(() -> new AccessDeniedException("Unable to find user with user name: " + username));
+                .orElseThrow(() -> new AccessDeniedException("Unable to find user with username: " + username));
 
             return ResponseEntity.ok(account);
     }

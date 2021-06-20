@@ -10,7 +10,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { Link } from 'react-router-dom';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
-import useStyles from './useStyles/DrawerStyles';
+import useStyles from '../useStyles/DrawerStyles';
 
 function ListItemLink(props) {
     const { icon, primary, to } = props;
