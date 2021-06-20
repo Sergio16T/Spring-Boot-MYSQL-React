@@ -26,11 +26,13 @@ const UpdateUser = ({ history, match }) => {
             [name]: value,
         });
     }
+
     const submitForm = async (e) => {
         e.preventDefault();
         await accountService.updateAccount(match.params.id, state);
         history.push('/');
     }
+
     return (
         <UserForm
             classes={classes}
