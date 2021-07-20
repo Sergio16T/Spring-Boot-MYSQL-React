@@ -11,6 +11,7 @@ const GoogleMap = () => {
     const handleMarkerClick = (event) => {
         event.stopPropagation();
         const { id } = event.currentTarget;
+
         if (id in state) {
             setState({});
         } else {
@@ -25,8 +26,8 @@ const GoogleMap = () => {
     };
 
     const handleApiLoaded = (map, maps) => {
-        console.log(map)
-        console.log(maps)
+        console.log(map);
+        console.log(maps);
         mapRef.current = map;
     }
 

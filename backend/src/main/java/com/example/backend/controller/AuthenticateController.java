@@ -1,6 +1,8 @@
 package com.example.backend.controller;
 
 import com.example.backend.repository.AccountRepository;
+import com.example.backend.utilities.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +31,8 @@ public class AuthenticateController {
 
             Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new AccessDeniedException("Unable to find user with username: " + username));
+
+            Logger.printObjectAsString(account, "Authenticated account data");
 
             return ResponseEntity.ok(account);
     }
