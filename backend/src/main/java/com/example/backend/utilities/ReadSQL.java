@@ -20,7 +20,7 @@ public class ReadSQL {
 
     public ReadSQL(String path) {
         Integer beginIndex = path.indexOf("/", 1);
-        this.path = beginIndex > 0 ? path.substring(beginIndex) : path.substring(0);
+        this.path = beginIndex > 0 ? path.substring(beginIndex) : path.substring(0); // determine this.path without the initial directory in argument if there are multiple for logging purposes
 
         // Java -Try With Resources- syntax
         try (InputStream inputStream = getClass().getResourceAsStream(path);
