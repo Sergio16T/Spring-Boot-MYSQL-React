@@ -29,6 +29,7 @@ class ListUsers extends Component {
     }
 
     deleteUser = async (id) => {
+        // TO DO: Add logic to check if id matches logged in user id - if so prevent deletion and display error message
         await accountService.deleteAccount(id);
         const users = this.state.users.filter(user => user.id !== id);
         this.setState({ users });

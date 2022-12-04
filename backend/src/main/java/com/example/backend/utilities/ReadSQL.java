@@ -13,14 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ReadSQL {
-    public String SQL;
-    public String path;
 
+    private String SQL;
+    private String path;
     private static final Logger logger= LoggerFactory.getLogger(ReadSQL.class);
 
     public ReadSQL(String path) {
         Integer beginIndex = path.indexOf("/", 1);
-        this.path = beginIndex > 0 ? path.substring(beginIndex) : path.substring(0);
+        this.path = beginIndex > 0 ? path.substring(beginIndex) : path.substring(0); // determine this.path without the initial directory in argument if there are multiple for logging purposes
 
         // Java -Try With Resources- syntax
         try (InputStream inputStream = getClass().getResourceAsStream(path);
