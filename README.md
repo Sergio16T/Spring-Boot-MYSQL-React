@@ -1,19 +1,10 @@
 <div align="center">
-    <h1> Spring-Boot-React</h1>
-    <div>
-        <img alt="React" src="./react.svg" width="150px"/>
-    </div>
-    <div>
-         <img alt="plus" src="./plus.svg" width="50px"/>
-    </div>
-    <div>
-        <img alt="Spring" src="./spring.png" width="300px"/>
-    </div>
+    <img src="./logo.svg" width="200px"/>
+    <h1 style="margin-top: -5px"> Spring-Boot-React</h1>
 
 </div>
 
-## Summary
-This project is a skeleton for a React App with Springboot on the back-end including JWT authentication and MYSQL.
+This project is a skeleton for a React App with Spring Boot on the back-end including JWT authentication and MYSQL.
 
 ### Tech Stack
 * **React:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug. Build encapsulated components that manage their own state and then compose them to make beautiful UI’s.
