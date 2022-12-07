@@ -4,10 +4,10 @@
         <img alt="React" src="./react.svg" width="150px" style="margin-top: 10px"/>
     </div>
     <div>
-         <img alt="plust" src="./plus.svg" width="50px" style="margin: 30px 50px"/>
+         <img alt="plus" src="./plus.svg" width="50px" style="margin: 50px 50px"/>
     </div>
     <div>
-            <img alt="Spring" src="./spring.png" width="300px" style="margin-bottom: 10px" />
+        <img alt="Spring" src="./spring.png" width="300px" style="margin-bottom: 10px" />
     </div>
 
 </div>
