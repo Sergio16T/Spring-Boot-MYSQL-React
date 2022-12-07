@@ -50,10 +50,15 @@ public class AccountRepository {
     public Optional <Account> findById(long id) {
         ReadSQL readSQL = new ReadSQL("/Account/SelectAccountById.sql");
         String query = readSQL.getQuery();
-        return Optional.of(jdbcTemplate.queryForObject(query, new Object[] {
-                id
-            },
-            new BeanPropertyRowMapper <Account> (Account.class)));
+        try {
+            return Optional.of(jdbcTemplate.queryForObject(query, new Object[] {
+                    id
+                },
+                new BeanPropertyRowMapper <Account> (Account.class)));
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("Account Not Found");
+            return Optional.empty();
+        }
     }
 
     public Optional <Account> checkIfEmailUnavailable(String email) {
@@ -72,10 +77,15 @@ public class AccountRepository {
     public Optional <Account> findByEmail(String email) {
         ReadSQL readSQL = new ReadSQL("/Account/SelectAccountByEmail.sql");
         String query = readSQL.getQuery();
-        return Optional.of(jdbcTemplate.queryForObject(query, new Object[] {
-            email
-        },
-        new BeanPropertyRowMapper<Account>(Account.class)));
+        try {
+            return Optional.of(jdbcTemplate.queryForObject(query, new Object[] {
+                email
+            },
+            new BeanPropertyRowMapper<Account>(Account.class)));
+        } catch (EmptyResultDataAccessException e) {
+                System.out.println("Email Not Found");
+                return Optional.empty();
+        }
     }
 
     public int delete(long id) {
