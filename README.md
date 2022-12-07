@@ -1,6 +1,7 @@
 <div align="center">
-    <h1> Spring-Boot-React</h1>
-    <img src="./logo.svg" width="500px"/>
+    <img src="./logo.svg" width="200px"/>
+    <h1 style="margin-top: -5px"> Spring-Boot-React</h1>
+
 </div>
 
 ## Summary
