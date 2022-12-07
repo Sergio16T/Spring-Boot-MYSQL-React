@@ -1,6 +1,19 @@
-# Full Stack React Java Spring Boot Bootstrap
+<div align="center">
+    <h1> Spring Boot your React application  </h1>
+    <div>
+        <img alt="React" src="./react.svg" width="150px" style="margin-top: 10px"/>
+    </div>
+    <div>
+         <img alt="plust" src="./plus.svg" width="50px" style="margin: 30px 50px"/>
+    </div>
+    <div>
+            <img alt="Spring" src="./spring.png" width="300px" style="margin-bottom: 10px" />
+    </div>
 
-This project is a skeleton for a React App with Springboot on the back-end for easily getting started including JWT authentication.
+</div>
+
+## Summary
+This project is a skeleton for a React App with Springboot on the back-end including JWT authentication and MYSQL.
 
 ### Tech Stack
 * **React:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug. Build encapsulated components that manage their own state and then compose them to make beautiful UI’s.
