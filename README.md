@@ -4,7 +4,7 @@
 
 </div>
 
-This project is a skeleton for a React App with Springboot on the back-end including JWT authentication and MYSQL.
+This project is a skeleton for a React App with Spring Boot on the back-end including JWT authentication and MYSQL.
 
 ### Tech Stack
 * **React:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug. Build encapsulated components that manage their own state and then compose them to make beautiful UI’s.
