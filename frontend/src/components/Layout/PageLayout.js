@@ -21,20 +21,20 @@ const Page = ({ children, history, text }) => {
 
     if (!loadComplete) {
         return null;
-    } else if (error) {
-        return <Redirect to="/signin"/>;
-    } else if (user) {
-        return (
-            <div id="page-layout">
-                <Appbar
-                    text={text}
-                    toggleDrawer={toggleDrawer}
-                    history={history}
-                />
-                {children}
-            </div>
-        );
     }
+    if (error || !user) {
+        return <Redirect to="/signin"/>;
+    }
+    return (
+        <div id="page-layout">
+            <Appbar
+                text={text}
+                toggleDrawer={toggleDrawer}
+                history={history}
+            />
+            {children}
+        </div>
+    );
 };
 
 Page.propTypes = {
