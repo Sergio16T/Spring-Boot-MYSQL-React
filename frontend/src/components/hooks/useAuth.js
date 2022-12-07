@@ -16,7 +16,7 @@ const useAuth = () => {
             } catch (err) {
                 dispatch({
                     type: "FAILED_AUTH",
-                    error: err.response,
+                    error: err.response ? err.response : err.message,
                 });
             }
         }

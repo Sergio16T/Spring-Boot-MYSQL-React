@@ -32,9 +32,13 @@ const SignUp = ({ history }) => {
             document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
             history.push('/users');
         } catch(err) {
-            console.log(err.response);
-            let { message } = err.response.data;
-            setError(message);
+            if (err.response) {
+                console.log(err.response);
+                let { message } = err.response.data;
+                setError(message);
+            } else {
+                setError(err.message);
+            }
         }
     }
     return (

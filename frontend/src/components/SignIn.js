@@ -28,8 +28,12 @@ const SignIn = ({ history }) => {
             document.cookie = `jwt=${data.jwt};max-age=${data.maxAge}; Secure;`;
             history.push('/users');
         } catch (err) {
-            let { message } = err.response.data;
-            setError(message);
+            if (err.response) {
+                let { message } = err.response.data;
+                setError(message);
+            } else {
+                setError(err.message);
+            }
         }
     }
     return (
