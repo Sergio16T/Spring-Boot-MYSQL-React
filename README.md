@@ -23,7 +23,6 @@ This project is a skeleton for a React App with Springboot on the back-end inclu
 * **MYSQL:** MySQL is an open-source relational database management system.
 * **SQL:** SQL is a domain-specific language used in programming and designed for managing data held in a relational database management system, or for stream processing in a relational data stream management system
 
-### Summary
-* **Currently in development:**
+### Currently in development
 
-* **Main Features:**
+### Main Features
