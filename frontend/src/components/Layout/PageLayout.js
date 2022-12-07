@@ -2,16 +2,15 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Appbar from './Appbar';
-import useAuth from '../Hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import { Context } from '../../App';
 
 const Page = ({ children, history, text }) => {
-    const { state } = useAuth();
-    const { dispatch, toggleDrawer } = useContext(Context);
+    const user = useAuth();
+    const { state, dispatch, toggleDrawer } = useContext(Context);
     const {
         error,
         loadComplete,
-        user,
     } = state;
 
     useEffect(() => {

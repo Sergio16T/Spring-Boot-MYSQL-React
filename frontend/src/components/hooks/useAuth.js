@@ -3,7 +3,7 @@ import authService from '../../API/authService';
 import { Context } from '../../App';
 
 const useAuth = () => {
-    const { state, dispatch } = useContext(Context);
+    const { state: { user }, dispatch } = useContext(Context);
 
     useEffect(() => {
         const getUser = async () => {
@@ -23,10 +23,7 @@ const useAuth = () => {
         getUser();
     }, [dispatch]);
 
-    return {
-        state,
-        dispatch,
-    };
+    return user;
 };
 
 export default useAuth;
