@@ -4,7 +4,6 @@
 
 </div>
 
-## Summary
 This project is a skeleton for a React App with Springboot on the back-end including JWT authentication and MYSQL.
 
 ### Tech Stack
