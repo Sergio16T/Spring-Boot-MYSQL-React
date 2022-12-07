@@ -1,5 +1,6 @@
 <div align="center">
-    <h1> Spring Boot your React application  </h1>
+    <h1> Spring-Boot-React</h1>
+    <h4> Spring Boot your React application  </h4>
     <div>
         <img alt="React" src="./react.svg" width="150px" style="margin-top: 10px"/>
     </div>
